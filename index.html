@@ -6,7 +6,7 @@
   <title>ครูลเกษตร....ออนไลน์ (เรียนได้ทุกที่...ทุกเวลา)</title>
   <link rel="icon" href="https://www.i-pic.info/i/hkfc794543.png" type="image/x-icon">
   <style>
-    html, body {
+ html, body {
       margin: 0;
       padding: 0;
       width: 100%;
@@ -17,43 +17,118 @@
       border: none;
       width: 100%;
       height: 100%;
-      display: none; /* เริ่มต้นซ่อน iframe */
+      display: none; /* ซ่อน iframe ชั่วคราว */
     }
-    .popup {
+
+    /* Preloader Style */
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Prompt:wght@600&display=swap');
+    .hidden {
+      display: none !important;
+    }
+
+    #text_loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    #logoLoader {
+      width: 120px;
+      height: auto;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    #preloader {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
+      background-color: rgba(200, 200, 200, 0.85);
+      z-index: 10000;
     }
-    .popup img {
-      max-width: 90%;
-      max-height: 90%;
-      border: 9px solid #4CAF50; /* ขอบสีเขียว */
-      border-radius: 15px; /* ขอบโค้งมน */
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* เพิ่มเงา */
+
+    #loader {
+      display: block;
+      position: relative;
+      left: 50%;
+      top: 50%;
+      width: 150px;
+      height: 150px;
+      margin: -75px 0 0 -75px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: #f00;
+      animation: spin 2s linear infinite;
+    }
+
+    #loader:before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: #0f0;
+      animation: spin 3s linear infinite;
+    }
+
+    #loader:after {
+      content: "";
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: #00f;
+      animation: spin 1.5s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="popup" id="popup">
-    <img src="https://firebasestorage.googleapis.com/v0/b/images-1f2b2.appspot.com/o/pay%2Fp-webstd.png?alt=media&token=81a01a31-70cc-4753-b2f7-0f965d99e409" alt="Welcome Popup">
+  <!-- Preloader -->
+  <div id="preloader">
+    <div id="loader"></div>
+    <div id="text_loader">
+      <img id="logoLoader" src="https://firebasestorage.googleapis.com/v0/b/images-1f2b2.appspot.com/o/pic-projet%2FKru-Kasert%20(1)-Photoroom.png?alt=media&token=24722181-fb43-4fcc-a118-6702703e8d87" alt="Kru Kaset Online">
+    </div>
   </div>
   <iframe id="iframe" src="https://script.google.com/macros/s/AKfycbzxEZ2WLBRaGNMO7-4ru6mFMAFxSETKzT5sr6AsAdbtmI_i7vyaP9S01UuH7MRXzAo7/exec?embedded=true"></iframe>
 
   <script>
-    function startApp() {
-      document.getElementById('popup').style.display = 'none'; // ซ่อน popup
-      document.getElementById('iframe').style.display = 'block'; // แสดง iframe
-    }
-
-    // ตั้งเวลาปิด popup อัตโนมัติหลัง 9 วินาที
-    setTimeout(startApp, 5000);
+    // Simulate loading process
+    window.onload = function() {
+      setTimeout(function() {
+        // ซ่อน preloader หลังจาก 3 วินาที
+        document.getElementById("preloader").classList.add("hidden");
+        // แสดง iframe
+        document.getElementById("iframe").style.display = "block";
+      }, 3000); // Preloader จะหายไปหลัง 3 วินาที
+    };
   </script>
 </body>
 </html>
